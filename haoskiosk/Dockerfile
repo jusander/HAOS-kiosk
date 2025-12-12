@@ -13,7 +13,14 @@ RUN cp /etc/resolv.conf /etc/resolv.conf.original || true
 RUN cat /etc/resolv.conf.original
 
 # Ensure reliable DNS inside the build container (BuildKit doesn't inherit HA DNS)
-RUN printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\noptions timeout:2 attempts:2\n" > /etc/resolv.conf
+#RUN printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\noptions timeout:2 attempts:2\n" > /etc/resolv.conf
+
+# -----------------------------------------------------------------------------
+# Avoid DNS issues during build: hardcode dl-cdn.alpinelinux.org Fastly IPs
+# (Anycast; pick at least one that your dig showed working; add a few just in case)
+# -----------------------------------------------------------------------------
+RUN set -eux; \
+    printf "151.101.2.132 dl-cdn.alpinelinux.org\n151.101.66.132 dl-cdn.alpinelinux.org\n151.101.130.132 dl-cdn.alpinelinux.org\n151.101.194.132 dl-cdn.alpinelinux.org\n" >> /etc/hosts
 
 
 # Install Luakit and necessary dependencies
