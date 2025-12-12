@@ -13,8 +13,7 @@ RUN cp /etc/resolv.conf /etc/resolv.conf.original || true
 RUN cat /etc/resolv.conf.original
 
 # Ensure reliable DNS inside the build container (BuildKit doesn't inherit HA DNS)
-
-# RUN printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\noptions timeout:2 attempts:2\n" > /etc/resolv.conf
+RUN printf "nameserver 8.8.8.8\nnameserver 1.1.1.1\noptions timeout:2 attempts:2\n" > /etc/resolv.conf
 
 
 # Install Luakit and necessary dependencies
