@@ -9,6 +9,18 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+# --- DNS diagnostics in build stage (read-only friendly) ---
+# 1) Check what nameservers the build container thinks it has
+# (This only *reads* resolv.conf; write operations fail on HA base images)
+RUN cat /etc/resolv.conf || true
+
+# 2) Try BusyBox nslookup without installing bind-tools
+RUN nslookup dl-cdn.alpinelinux.org || true
+
+# 3) Show outbound connectivity by IP (not using DNS)
+RUN wget -qO- http://151.101.66.132/ --timeout=3 || true
+
+
 # Install Luakit and necessary dependencies
 RUN apk update && apk add --no-cache \
     xorg-server \
