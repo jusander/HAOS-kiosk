@@ -1,10 +1,10 @@
 ---
-name: "HAOS Kiosk Display"
+name: "Custom HAOS Kiosk Display"
 description: |
   Start X server and browser on local HAOS server and display dashboards in
-  kiosk mode (Jeff Kosowsky)
-version: "1.1.1"
-slug: "haoskiosk"
+  kiosk mode (Originally Jeff Kosowsky)
+version: "0.0.1"
+slug: "custom-kiosk"
 
 arch:
   - aarch64
@@ -59,7 +59,7 @@ privileged:
   - SYS_ADMIN
 
 options:
-  ha_url: "http://localhost:8123"
+  ha_url: "https://homeassistant.local:8123/"
   ha_dashboard: ""
   login_delay: 1.0
   zoom_level: 100
@@ -70,7 +70,7 @@ options:
   ha_sidebar: "none"
   rotate_display: "normal"
   map_touch_inputs: true
-  keyboard_layout: us
+  keyboard_layout: fi
   cursor_timeout: 5
   onscreen_keyboard: false
   save_onscreen_config: true
